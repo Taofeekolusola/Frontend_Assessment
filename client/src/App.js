@@ -80,7 +80,7 @@ function App() {
     <Router>
       <Routes>
         {/* Default Root Redirect */}
-        <Route path="/" element={<Navigate to={isLoggedIn ? "/dashboard" : "/register"} />} />
+        <Route path="/" element={<Navigate to={isLoggedIn ? "/dashboard" : "/login"} />} />
 
         {/* Public Auth Routes */}
         <Route path="/register" element={<Register />} />
@@ -90,17 +90,19 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-password-code" element={<VerifyPasswordCode />} />
 
-        {/* Protected Area with SidebarLayout */}
+        {/* Protected Dashboard Routes (with Sidebar) */}
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <PrivateRoute>
               <SidebarLayout />
             </PrivateRoute>
           }
         >
-          {/* Protected Routes */}
-          <Route path="dashboard" element={<Dashboard />} />
+          {/* Main dashboard route */}
+          <Route index element={<Dashboard />} />
+          
+          {/* Other protected nested routes */}
           <Route path="profile" element={<UserProfile />} />
           <Route path="users" element={<AllUsers />} />
           <Route path="user-profile/:userid" element={<UserDetail />} />
@@ -108,7 +110,7 @@ function App() {
           <Route path="change-user-status" element={<ChangeUserStatus />} />
           <Route path="roles" element={<Roles />} />
 
-          {/* Exam Management Routes */}
+          {/* Exam Routes */}
           <Route path="exams" element={<AllExams />} />
           <Route path="exam-details/:examid" element={<ExamDetails />} />
           <Route path="my-registered-exams" element={<MyRegisteredExams />} />
@@ -119,23 +121,21 @@ function App() {
           <Route path="exam-levels" element={<ExamLevels />} />
           <Route path="exam-by-subject" element={<ExamBySubject />} />
           <Route path="participant-exam" element={<RegisteredParticipantExam />} />
-
-          {/* Exam Questions Management */}
           <Route path="exam-questions/:examid" element={<ExamQuestions />} />
           <Route path="question/:questionid" element={<SingleQuestion />} />
 
-          {/* Subject Management Routes */}
+          {/* Subject Management */}
           <Route path="subjects" element={<AllSubjects />} />
           <Route path="my-subjects" element={<MySubjects />} />
           <Route path="subject/:SubjectID" element={<SingleSubject />} />
           <Route path="create-subject" element={<CreateSubject />} />
           <Route path="edit-subject" element={<EditSubject />} />
 
-          {/* Institution Management Routes */}
+          {/* Institutions */}
           <Route path="institutions" element={<AllInstitutions />} />
           <Route path="institution/:InstitutionID" element={<SingleInstitution />} />
 
-          {/* Wallet & Card Request Features */}
+          {/* Wallet */}
           <Route path="request-card" element={<RequestCardPage />} />
           <Route path="card-denominations" element={<CardDenominations />} />
           <Route path="my-card-requests" element={<MyCardRequests />} />
@@ -146,13 +146,12 @@ function App() {
           <Route path="approve-fund/:fundrequest_id" element={<ApproveFundRequest />} />
           <Route path="verify-card" element={<VerifyCard />} />
 
-          {/* Subscription Features */}
+          {/* Subscriptions */}
           <Route path="subscriptions" element={<AllSubscriptions />} />
           <Route path="subscribe-plan" element={<SubscribePlan />} />
           <Route path="my-subscriptions" element={<MySubscriptions />} />
           <Route path="expire-subscriptions" element={<ExpireSubscriptions />} />
           <Route path="check-subscription" element={<CheckSubscriptionStatus />} />
-
         </Route>
 
         {/* Fallback Route */}
