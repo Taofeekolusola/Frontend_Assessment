@@ -1,0 +1,36 @@
+import { useEffect, useState } from "react";
+import api from "../../services/api";
+
+export default function UserProfile() {
+  const [profile, setProfile] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get("/api/User/Profile");
+        setProfile(response.data);
+      } catch (err) {
+        setError("Failed to fetch profile.");
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  if (error) return <p className="text-red-500 text-center mt-4">{error}</p>;
+
+  if (!profile) return <p className="text-center mt-4">Loading profile...</p>;
+
+  return (
+    <div className="max-w-xl mx-auto mt-8 bg-white p-6 shadow-md rounded">
+      <h2 className="text-2xl font-semibold mb-4">My Profile</h2>
+      <div className="space-y-2">
+        <p><strong>Name:</strong> {profile.firstname} {profile.lastname}</p>
+        <p><strong>Email:</strong> {profile.emailaddress}</p>
+        <p><strong>Phone:</strong> {profile.phonenumber}</p>
+        <p><strong>Role:</strong> {profile.roleName}</p>
+      </div>
+    </div>
+  );
+}

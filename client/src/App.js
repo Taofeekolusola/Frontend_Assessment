@@ -1,0 +1,165 @@
+// App.jsx
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Register from "./pages/exam/Register";
+import Login from "./pages/exam/Login";
+import ForgotPassword from "./pages/exam/ForgotPassword";
+import ConfirmActivation from "./pages/wallet/ConfirmActivation";
+import ResetPassword from "./pages/exam/ResetPassword";
+import VerifyPasswordCode from "./pages/profile/VerifyPasswordCode";
+
+// User Management
+import UserProfile from "./pages/profile/UserProfile";
+import AllUsers from "./pages/profile/AllUsers";
+import UserDetail from "./pages/profile/UserDetail";
+import SearchUser from "./pages/profile/SearchUser";
+import ChangeUserStatus from "./pages/exam/ChangeUserStatus";
+import Roles from "./pages/profile/Roles";
+
+// Exam Management
+import AllExams from "./pages/exam/AllExams";
+import ExamDetails from "./pages/exam/ExamDetails";
+import MyRegisteredExams from "./pages/exam/MyRegisteredExams";
+import CreateExam from "./pages/exam/CreateExam";
+import EditExam from "./pages/exam/EditExam";
+import StartExam from "./pages/exam/StartExam";
+import SubmitAnswers from "./pages/exam/SubmitAnswers";
+import ExamLevels from "./pages/exam/ExamLevels";
+import ExamBySubject from "./pages/exam/ExamBySubject";
+import RegisteredParticipantExam from "./pages/exam/RegisteredParticipantExam";
+
+// Exam Questions Management
+import ExamQuestions from "./pages/exam/ExamQuestions";
+import SingleQuestion from "./pages/exam/SingleQuestion";
+
+// Subject Management
+import AllSubjects from "./pages/exam/AllSubjects";
+import MySubjects from "./pages/exam/MySubjects";
+import SingleSubject from "./pages/exam/SingleSubject";
+import CreateSubject from "./pages/exam/CreateSubject";
+import EditSubject from "./pages/exam/EditSubject";
+import AllInstitutions from "./pages/subscription/AllInstitutions";
+import SingleInstitution from "./pages/subscription/SingleInstitution";
+
+import Dashboard from "./pages/Dashboard";
+import SidebarLayout from "./components/SidebarLayout";
+
+// Wallet & Card Request Features
+import RequestCardPage from "./pages/wallet/RequestCardPage";
+import CardDenominations from "./pages/wallet/CardDenominations";
+import MyCardRequests from "./pages/wallet/MyCardRequests";
+import CardRequestDetails from "./pages/wallet/CardRequestDetails";
+import CardsByRequest from "./pages/wallet/CardsByRequest";
+import MyWallet from "./pages/wallet/MyWallet";
+import LoadFundRequest from "./pages/wallet/LoadFundRequest";
+import ApproveFundRequest from "./pages/wallet/ApproveFundRequest";
+import VerifyCard from "./pages/wallet/VerifyCard";
+
+// Subscription Pages
+import AllSubscriptions from "./pages/subscription/AllSubscriptions";
+import SubscribePlan from "./pages/subscription/SubscribePlan";
+import MySubscriptions from "./pages/subscription/MySubscriptions";
+import ExpireSubscriptions from "./pages/subscription/ExpireSubscriptions";
+import CheckSubscriptionStatus from "./pages/subscription/CheckSubscriptionStatus";
+
+// Role-based access control wrapper
+function PrivateRoute({ children, allowedRoles }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
+  if (!user || !token) return <Navigate to="/login" />;
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" />;
+  }
+  return children;
+}
+
+function App() {
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  return (
+    <Router>
+      <Routes>
+        {/* Default Root Redirect */}
+        <Route path="/" element={<Navigate to={isLoggedIn ? "/dashboard" : "/register"} />} />
+
+        {/* Public Auth Routes */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/confirm-activation" element={<ConfirmActivation />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-password-code" element={<VerifyPasswordCode />} />
+
+        {/* Protected Area with SidebarLayout */}
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <SidebarLayout />
+            </PrivateRoute>
+          }
+        >
+          {/* Protected Routes */}
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="users" element={<AllUsers />} />
+          <Route path="user-profile/:userid" element={<UserDetail />} />
+          <Route path="search-user" element={<SearchUser />} />
+          <Route path="change-user-status" element={<ChangeUserStatus />} />
+          <Route path="roles" element={<Roles />} />
+
+          {/* Exam Management Routes */}
+          <Route path="exams" element={<AllExams />} />
+          <Route path="exam-details/:examid" element={<ExamDetails />} />
+          <Route path="my-registered-exams" element={<MyRegisteredExams />} />
+          <Route path="create-exam" element={<CreateExam />} />
+          <Route path="edit-exam/:examid" element={<EditExam />} />
+          <Route path="start-exam" element={<StartExam />} />
+          <Route path="submit-answers" element={<SubmitAnswers />} />
+          <Route path="exam-levels" element={<ExamLevels />} />
+          <Route path="exam-by-subject" element={<ExamBySubject />} />
+          <Route path="participant-exam" element={<RegisteredParticipantExam />} />
+
+          {/* Exam Questions Management */}
+          <Route path="exam-questions/:examid" element={<ExamQuestions />} />
+          <Route path="question/:questionid" element={<SingleQuestion />} />
+
+          {/* Subject Management Routes */}
+          <Route path="subjects" element={<AllSubjects />} />
+          <Route path="my-subjects" element={<MySubjects />} />
+          <Route path="subject/:SubjectID" element={<SingleSubject />} />
+          <Route path="create-subject" element={<CreateSubject />} />
+          <Route path="edit-subject" element={<EditSubject />} />
+
+          {/* Institution Management Routes */}
+          <Route path="institutions" element={<AllInstitutions />} />
+          <Route path="institution/:InstitutionID" element={<SingleInstitution />} />
+
+          {/* Wallet & Card Request Features */}
+          <Route path="request-card" element={<RequestCardPage />} />
+          <Route path="card-denominations" element={<CardDenominations />} />
+          <Route path="my-card-requests" element={<MyCardRequests />} />
+          <Route path="card-request/:requestid" element={<CardRequestDetails />} />
+          <Route path="cards-by-request/:requestid" element={<CardsByRequest />} />
+          <Route path="my-wallet" element={<MyWallet />} />
+          <Route path="load-fund" element={<LoadFundRequest />} />
+          <Route path="approve-fund/:fundrequest_id" element={<ApproveFundRequest />} />
+          <Route path="verify-card" element={<VerifyCard />} />
+
+          {/* Subscription Features */}
+          <Route path="subscriptions" element={<AllSubscriptions />} />
+          <Route path="subscribe-plan" element={<SubscribePlan />} />
+          <Route path="my-subscriptions" element={<MySubscriptions />} />
+          <Route path="expire-subscriptions" element={<ExpireSubscriptions />} />
+          <Route path="check-subscription" element={<CheckSubscriptionStatus />} />
+
+        </Route>
+
+        {/* Fallback Route */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
