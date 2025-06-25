@@ -33,7 +33,7 @@ export default function Register() {
         role: parseInt(formData.role)
       });
       setSuccess("Registration successful! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 2000);
+      setTimeout(() => navigate("/confirm-activation"), 2000);
     } catch (err) {
       console.error(err?.response?.data || err.message);
       setError(err?.response?.data?.message || "Registration failed. Please check your input.");

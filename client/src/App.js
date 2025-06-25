@@ -1,10 +1,10 @@
 // App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Register from "./pages/exam/Register";
-import Login from "./pages/exam/Login";
-import ForgotPassword from "./pages/exam/ForgotPassword";
-import ConfirmActivation from "./pages/wallet/ConfirmActivation";
-import ResetPassword from "./pages/exam/ResetPassword";
+import Register from "./pages/profile/Register";
+import Login from "./pages/profile/Login";
+import ForgotPassword from "./pages/profile/ForgotPassword";
+import ConfirmActivation from "./pages/profile/ConfirmActivation";
+import ResetPassword from "./pages/profile/ResetPassword";
 import VerifyPasswordCode from "./pages/profile/VerifyPasswordCode";
 
 // User Management
@@ -12,7 +12,7 @@ import UserProfile from "./pages/profile/UserProfile";
 import AllUsers from "./pages/profile/AllUsers";
 import UserDetail from "./pages/profile/UserDetail";
 import SearchUser from "./pages/profile/SearchUser";
-import ChangeUserStatus from "./pages/exam/ChangeUserStatus";
+import ChangeUserStatus from "./pages/profile/ChangeUserStatus";
 import Roles from "./pages/profile/Roles";
 
 // Exam Management
