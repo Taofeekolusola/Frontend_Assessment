@@ -6,10 +6,13 @@ export default function MyRegisteredExams() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    api.get("/api/Exam/MyRegisteredExams")
-      .then((res) => setExams(res.data))
-      .catch(() => setError("Failed to load registered exams"));
-  }, []);
+  api.get("/api/Subject/AllSubject")
+    .then(res => {
+      console.log(res.data); // Check the structure
+      setExams(Array.isArray(res.data) ? res.data : res.data.data || []);
+    })
+    .catch(() => console.log("Failed to fetch subjects"));
+}, []);
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
