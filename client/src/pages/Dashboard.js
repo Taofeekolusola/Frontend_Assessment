@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FaUser, FaEnvelope, FaPhone, FaUserShield } from "react-icons/fa";
 import { BsBook, BsWallet2, BsCreditCard, BsCalendarEvent } from "react-icons/bs";
 
@@ -51,19 +52,19 @@ export default function Dashboard() {
             <ul className="space-y-4 text-gray-800 text-sm sm:text-base">
               <li className="flex items-center gap-3 hover:text-blue-700 hover:translate-x-1 transition-all duration-200">
                 <BsBook className="text-blue-500" />
-                <a href="/exams" className="hover:underline">View Exams</a>
+                <Link to="/dashboard/exams" className="hover:underline">View Exams</Link>
               </li>
               <li className="flex items-center gap-3 hover:text-blue-700 hover:translate-x-1 transition-all duration-200">
                 <BsWallet2 className="text-blue-500" />
-                <a href="/my-wallet" className="hover:underline">Check Wallet</a>
+                <Link to="/dashboard/my-wallet" className="hover:underline">Check Wallet</Link>
               </li>
               <li className="flex items-center gap-3 hover:text-blue-700 hover:translate-x-1 transition-all duration-200">
                 <BsCreditCard className="text-blue-500" />
-                <a href="/request-card" className="hover:underline">Request Card</a>
+                <Link to="/dashboard/request-card" className="hover:underline">Request Card</Link>
               </li>
               <li className="flex items-center gap-3 hover:text-blue-700 hover:translate-x-1 transition-all duration-200">
                 <BsCalendarEvent className="text-blue-500" />
-                <a href="/subscriptions" className="hover:underline">Manage Subscriptions</a>
+                <Link to="/dashboard/subscriptions" className="hover:underline">Manage Subscriptions</Link>
               </li>
             </ul>
           </div>

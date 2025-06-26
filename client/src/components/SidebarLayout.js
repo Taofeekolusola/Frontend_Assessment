@@ -1,12 +1,11 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
-  FaBars, FaUser, FaSignOutAlt, FaWallet, FaClipboardList,
-  FaUniversity, FaUsers, FaBook, FaCheckCircle,
-  FaTools, FaChalkboardTeacher, FaGraduationCap, FaFolderOpen
+  FaBars, FaUser, FaSignOutAlt, FaFolderOpen,
+  FaChalkboardTeacher, FaGraduationCap
 } from "react-icons/fa";
 import {
-  BsCreditCard, BsCalendarEvent, BsPlusCircle, BsChevronDown, BsChevronUp
+  BsChevronDown, BsChevronUp
 } from "react-icons/bs";
 
 const SidebarLayout = () => {
@@ -14,14 +13,13 @@ const SidebarLayout = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Collapsible sections
   const [openSection, setOpenSection] = useState({
     exams: true,
     subjects: true,
     institutions: true,
     wallet: true,
     subscriptions: true,
-    admin: true
+    admin: true,
   });
 
   const toggleSection = (section) =>
@@ -34,24 +32,37 @@ const SidebarLayout = () => {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
-      {/* Mobile Topbar */}
+      {/* Top bar for small screens */}
       <header className="md:hidden bg-blue-900 text-white p-4 flex justify-between items-center">
-        <h2 className="text-xl font-bold">QUIZ APP</h2>
+        <h2 className="text-lg font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+          QUIZ APP
+        </h2>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-white text-2xl">
           <FaBars />
         </button>
       </header>
 
       {/* Sidebar */}
-      <aside className={`bg-blue-900 text-white w-full md:w-64 p-4 flex flex-col justify-between md:block ${sidebarOpen ? "block" : "hidden"}`}>
+      <aside
+        className={`bg-blue-900 text-white w-full md:w-64 p-4 flex flex-col justify-between ${
+          sidebarOpen ? "block" : "hidden md:block"
+        }`}
+      >
         <div>
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">QUIZ APP</h2>
+          {/* QUIZ APP heading on sidebar (hidden on mobile) */}
+        <div className="mb-6 hidden md:block">
+          <h1 className="text-2xl font-bold text-left">QUIZ APP</h1>
+        </div>
 
+          {/* Navigation */}
           <nav className="space-y-3 text-sm">
             <Link to="/dashboard" className="block hover:text-gray-300">🏠 Dashboard</Link>
 
-            {/* Exams Section */}
-            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('exams')}>
+            {/* Exams */}
+            <div
+              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
+              onClick={() => toggleSection("exams")}
+            >
               📝 Exams {openSection.exams ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.exams && (
@@ -65,7 +76,10 @@ const SidebarLayout = () => {
             )}
 
             {/* Subjects */}
-            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('subjects')}>
+            <div
+              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
+              onClick={() => toggleSection("subjects")}
+            >
               📚 Subjects {openSection.subjects ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.subjects && (
@@ -76,7 +90,10 @@ const SidebarLayout = () => {
             )}
 
             {/* Institutions */}
-            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('institutions')}>
+            <div
+              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
+              onClick={() => toggleSection("institutions")}
+            >
               🏫 Institutions {openSection.institutions ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.institutions && (
@@ -84,7 +101,10 @@ const SidebarLayout = () => {
             )}
 
             {/* Wallet */}
-            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('wallet')}>
+            <div
+              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
+              onClick={() => toggleSection("wallet")}
+            >
               💳 Wallet {openSection.wallet ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.wallet && (
@@ -97,7 +117,10 @@ const SidebarLayout = () => {
             )}
 
             {/* Subscriptions */}
-            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('subscriptions')}>
+            <div
+              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
+              onClick={() => toggleSection("subscriptions")}
+            >
               📦 Subscriptions {openSection.subscriptions ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.subscriptions && (
@@ -109,10 +132,13 @@ const SidebarLayout = () => {
               </>
             )}
 
-            {/* Admin */}
+            {/* Admin Section */}
             {user?.role === 1 && (
               <>
-                <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection('admin')}>
+                <div
+                  className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
+                  onClick={() => toggleSection("admin")}
+                >
                   🛠️ Admin Tools {openSection.admin ? <BsChevronUp /> : <BsChevronDown />}
                 </div>
                 {openSection.admin && (
@@ -132,30 +158,30 @@ const SidebarLayout = () => {
           </nav>
         </div>
 
-        {/* Bottom Icons Section */}
-        <div className="mt-6 flex justify-around text-white border-t border-gray-500 pt-4">
-          <div title="Profile" className="hover:text-yellow-400 cursor-pointer">
-            <FaUser size={18} />
+        {/* Bottom Section (busy & attractive) */}
+        <div className="mt-6 border-t border-gray-500 pt-4 text-white">
+          <div className="flex justify-around text-lg">
+            <div title="Profile" className="hover:text-yellow-400 cursor-pointer">
+              <FaUser />
+            </div>
+            <div title="Resources" className="hover:text-yellow-400 cursor-pointer">
+              <FaFolderOpen />
+            </div>
+            <div title="Help" className="hover:text-yellow-400 cursor-pointer">
+              <FaChalkboardTeacher />
+            </div>
+            <div title="Certification" className="hover:text-yellow-400 cursor-pointer">
+              <FaGraduationCap />
+            </div>
           </div>
-          <div title="Resources" className="hover:text-yellow-400 cursor-pointer">
-            <FaFolderOpen size={18} />
-          </div>
-          <div title="Help & Support" className="hover:text-yellow-400 cursor-pointer">
-            <FaChalkboardTeacher size={18} />
-          </div>
-          <div title="Certification" className="hover:text-yellow-400 cursor-pointer">
-            <FaGraduationCap size={18} />
-          </div>
+          <button
+            onClick={handleLogout}
+            className="mt-4 bg-red-600 px-4 py-2 rounded text-white w-full flex items-center justify-center gap-2 hover:bg-red-700 transition"
+          >
+            <FaSignOutAlt />
+            Logout
+          </button>
         </div>
-
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          className="mt-4 bg-red-600 px-4 py-2 rounded text-white w-full flex items-center justify-center gap-2 hover:bg-red-700 transition"
-        >
-          <FaSignOutAlt />
-          Logout
-        </button>
       </aside>
 
       {/* Main Content */}
