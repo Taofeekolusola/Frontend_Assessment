@@ -25,17 +25,18 @@ const SidebarLayout = () => {
       {/* Sidebar */}
       <aside className={`bg-blue-900 text-white w-full md:w-64 p-4 md:block ${sidebarOpen ? 'block' : 'hidden'}`}>
         <nav className="space-y-3">
-          <Link to="/" className="block hover:text-gray-300">Dashboard</Link>
-          <Link to="/exams" className="block hover:text-gray-300">Exams</Link>
-          <Link to="/subjects" className="block hover:text-gray-300">Subjects</Link>
-          <Link to="/institutions" className="block hover:text-gray-300">Institutions</Link>
+          <Link to="/dashboard" className="block hover:text-gray-300">Dashboard</Link>
+          <Link to="/dashboard/exams" className="block hover:text-gray-300">Exams</Link>
+          <Link to="/dashboard/subjects" className="block hover:text-gray-300">Subjects</Link>
+          <Link to="/dashboard/institutions" className="block hover:text-gray-300">Institutions</Link>
           {user?.role === 1 && (
             <>
-              <Link to="/users" className="block hover:text-gray-300">Users</Link>
-              <Link to="/create-exam" className="block hover:text-gray-300">Create Exam</Link>
-              <Link to="/create-subject" className="block hover:text-gray-300">Create Subject</Link>
+              <Link to="/dashboard/users" className="block hover:text-gray-300">Users</Link>
+              <Link to="/dashboard/create-exam" className="block hover:text-gray-300">Create Exam</Link>
+              <Link to="/dashboard/create-subject" className="block hover:text-gray-300">Create Subject</Link>
             </>
           )}
+
           <button onClick={handleLogout} className="mt-4 bg-red-600 px-4 py-2 rounded text-white w-full">
             Logout
           </button>
