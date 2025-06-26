@@ -7,6 +7,7 @@ export default function ExamDetails() {
     const navigate = useNavigate();
     const [exam, setExam] = useState(null);
     const [error, setError] = useState("");
+    console.log("Exam ID:", examid);
 
     useEffect(() => {
         api.get(`/api/Exam/ExamDetails/${examid}`)
