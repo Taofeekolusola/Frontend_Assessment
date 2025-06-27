@@ -6,7 +6,7 @@ export default function MySubjects() {
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-  api.get("/api/Subject/AllSubject")
+  api.get("/api/Subject/MySubject")
     .then(res => {
       console.log(res.data); // Check the structure
       setSubjects(Array.isArray(res.data) ? res.data : res.data.data || []);

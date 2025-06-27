@@ -39,23 +39,27 @@ import ExamQuestions from "./pages/exam/ExamQuestions";
 import SingleQuestion from "./pages/exam/SingleQuestion";
 import CreateQuestion from "./pages/exam/CreateQuestion";
 import EditQuestion from "./pages/exam/EditQuestion";
+import ViewExamQuestion from "./pages/exam/ViewExamQuestion";
+import EditAnswer from "./pages/exam/EditAnswer";
 
 // Subjects
-import AllSubjects from "./pages/exam/AllSubjects";
-import MySubjects from "./pages/exam/MySubjects";
+import AllSubjects from "./pages/exam/AllSubject";
+import MySubjects from "./pages/exam/MySubject";
 import SingleSubject from "./pages/exam/SingleSubject";
 import CreateSubject from "./pages/exam/CreateSubject";
 import EditSubject from "./pages/exam/EditSubject";
 import SubjectSummary from "./pages/exam/SubjectSummary";
+import MySubjectCount from "./pages/exam/MySubjectCount";
 
 // Institutions
 import AllInstitutions from "./pages/institution/AllInstitutions";
 import SingleInstitution from "./pages/institution/SingleInstitution";
 import CreateInstitution from "./pages/institution/CreateInstitution";
 import EditInstitution from "./pages/institution/EditInstitution";
+import AddInstitution from "./pages/institution/AddInstitution";
 
 // Wallet
-import RequestCardPage from "./pages/wallet/RequestCardPage";
+import RequestCardPage from "./pages/wallet/RequestCard";
 import CardDenominations from "./pages/wallet/CardDenominations";
 import MyCardRequests from "./pages/wallet/MyCardRequests";
 import CardRequestDetails from "./pages/wallet/CardRequestDetails";
@@ -64,13 +68,21 @@ import MyWallet from "./pages/wallet/MyWallet";
 import LoadFundRequest from "./pages/wallet/LoadFundRequest";
 import ApproveFundRequest from "./pages/wallet/ApproveFundRequest";
 import VerifyCard from "./pages/wallet/VerifyCard";
+import WalletTransactions from "./pages/payment/WalletTransactions";
+import LogFundRequest from "./pages/wallet/LogFundRequest";
+import CreateScheme from "./pages/wallet/CreateScheme";
+import AllSchemes from "./pages/wallet/AllSchemes";
+
+// Payment
+import InitializePayment from "./pages/payment/InitializePayment";
+import VerifyTransaction from "./pages/payment/VerifyTransaction";
 
 // Subscriptions
 import AllSubscriptions from "./pages/subscription/AllSubscriptions";
 import SubscribePlan from "./pages/subscription/SubscribePlan";
 import MySubscriptions from "./pages/subscription/MySubscriptions";
 import ExpireSubscriptions from "./pages/subscription/ExpireSubscriptions";
-import CheckSubscriptionStatus from "./pages/subscription/CheckSubscriptionStatus";
+import CheckSubscriptionStatus from "./pages/subscription/CheckSubscription";
 import SubscriptionList from "./pages/subscription/SubscriptionList";
 
 // Dashboard
@@ -96,7 +108,7 @@ function AppWithFooter() {
       <Routes>
         <Route path="/" element={<Navigate to={localStorage.getItem("token") ? "/dashboard" : "/login"} />} />
 
-        {/* Auth Routes (No Footer) */}
+        {/* Auth Routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -104,7 +116,7 @@ function AppWithFooter() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-password-code" element={<VerifyPasswordCode />} />
 
-        {/* Protected Dashboard Routes */}
+        {/* Protected Routes */}
         <Route
           path="/dashboard"
           element={
@@ -139,6 +151,8 @@ function AppWithFooter() {
           <Route path="question/:questionid" element={<SingleQuestion />} />
           <Route path="create-question" element={<CreateQuestion />} />
           <Route path="edit-question/:questionid" element={<EditQuestion />} />
+          <Route path="view-question/:questionid" element={<ViewExamQuestion />} />
+          <Route path="edit-answer/:questionid" element={<EditAnswer />} />
 
           {/* Subjects */}
           <Route path="subjects" element={<AllSubjects />} />
@@ -147,12 +161,14 @@ function AppWithFooter() {
           <Route path="create-subject" element={<CreateSubject />} />
           <Route path="edit-subject" element={<EditSubject />} />
           <Route path="subject-summary" element={<SubjectSummary />} />
+          <Route path="my-subject-count" element={<MySubjectCount />} />
 
           {/* Institutions */}
           <Route path="institutions" element={<AllInstitutions />} />
           <Route path="institution/:InstitutionID" element={<SingleInstitution />} />
           <Route path="create-institution" element={<CreateInstitution />} />
           <Route path="edit-institution/:id" element={<EditInstitution />} />
+          <Route path="add-institution" element={<AddInstitution />} />
 
           {/* Wallet */}
           <Route path="request-card" element={<RequestCardPage />} />
@@ -164,6 +180,14 @@ function AppWithFooter() {
           <Route path="load-fund" element={<LoadFundRequest />} />
           <Route path="approve-fund/:fundrequest_id" element={<ApproveFundRequest />} />
           <Route path="verify-card" element={<VerifyCard />} />
+          <Route path="wallet-transactions" element={<WalletTransactions />} />
+          <Route path="log-fund-request" element={<LogFundRequest />} />
+          <Route path="create-scheme" element={<CreateScheme />} />
+          <Route path="schemes" element={<AllSchemes />} />
+
+          {/* Payment */}
+          <Route path="initialize-payment" element={<InitializePayment />} />
+          <Route path="verify-transaction" element={<VerifyTransaction />} />
 
           {/* Subscriptions */}
           <Route path="subscriptions" element={<AllSubscriptions />} />

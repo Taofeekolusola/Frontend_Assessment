@@ -2,7 +2,7 @@
 import { useState } from "react";
 import api from "../../services/api";
 
-export default function RequestCardPage() {
+export default function RequestCard() {
   const [form, setForm] = useState({ cardDenomination: "", totalCard: "" });
   const [message, setMessage] = useState("");
 
