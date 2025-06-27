@@ -1,13 +1,17 @@
-// App.jsx
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-// Existing imports...
+// Auth Pages
 import Register from "./pages/profile/Register";
 import Login from "./pages/profile/Login";
 import ForgotPassword from "./pages/profile/ForgotPassword";
 import ConfirmActivation from "./pages/profile/ConfirmActivation";
 import ResetPassword from "./pages/profile/ResetPassword";
 import VerifyPasswordCode from "./pages/profile/VerifyPasswordCode";
+
+// Components
+import SidebarLayout from "./components/SidebarLayout";
+import Footer from "./components/Footer";
 
 // User Management
 import UserProfile from "./pages/profile/UserProfile";
@@ -28,33 +32,29 @@ import SubmitAnswers from "./pages/exam/SubmitAnswers";
 import ExamLevels from "./pages/exam/ExamLevels";
 import ExamBySubject from "./pages/exam/ExamBySubject";
 import RegisteredParticipantExam from "./pages/exam/RegisteredParticipantExam";
-import RegisterExam from "./pages/exam/RegisterExam"; 
+import RegisterExam from "./pages/exam/RegisterExam";
 
 // Exam Questions
 import ExamQuestions from "./pages/exam/ExamQuestions";
 import SingleQuestion from "./pages/exam/SingleQuestion";
-import CreateQuestion from "./pages/exam/CreateQuestion"; 
-import EditQuestion from "./pages/exam/EditQuestion";     
+import CreateQuestion from "./pages/exam/CreateQuestion";
+import EditQuestion from "./pages/exam/EditQuestion";
 
-// Subject Management
+// Subjects
 import AllSubjects from "./pages/exam/AllSubjects";
 import MySubjects from "./pages/exam/MySubjects";
 import SingleSubject from "./pages/exam/SingleSubject";
 import CreateSubject from "./pages/exam/CreateSubject";
 import EditSubject from "./pages/exam/EditSubject";
-import SubjectSummary from "./pages/exam/SubjectSummary"; 
+import SubjectSummary from "./pages/exam/SubjectSummary";
 
 // Institutions
 import AllInstitutions from "./pages/institution/AllInstitutions";
 import SingleInstitution from "./pages/institution/SingleInstitution";
-import CreateInstitution from "./pages/institution/CreateInstitution"; 
-import EditInstitution from "./pages/institution/EditInstitution";     
+import CreateInstitution from "./pages/institution/CreateInstitution";
+import EditInstitution from "./pages/institution/EditInstitution";
 
-// Dashboard & Layout
-import Dashboard from "./pages/Dashboard";
-import SidebarLayout from "./components/SidebarLayout";
-
-// Wallet & Card
+// Wallet
 import RequestCardPage from "./pages/wallet/RequestCardPage";
 import CardDenominations from "./pages/wallet/CardDenominations";
 import MyCardRequests from "./pages/wallet/MyCardRequests";
@@ -71,9 +71,12 @@ import SubscribePlan from "./pages/subscription/SubscribePlan";
 import MySubscriptions from "./pages/subscription/MySubscriptions";
 import ExpireSubscriptions from "./pages/subscription/ExpireSubscriptions";
 import CheckSubscriptionStatus from "./pages/subscription/CheckSubscriptionStatus";
-import SubscriptionList from "./pages/subscription/SubscriptionList"; // ✅ new
+import SubscriptionList from "./pages/subscription/SubscriptionList";
 
-// Auth guard
+// Dashboard
+import Dashboard from "./pages/Dashboard";
+
+// Auth Guard
 function PrivateRoute({ children, allowedRoles }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
@@ -82,15 +85,18 @@ function PrivateRoute({ children, allowedRoles }) {
   return children;
 }
 
-function App() {
-  const isLoggedIn = !!localStorage.getItem("token");
+// Wrapper to conditionally render the footer
+function AppWithFooter() {
+  const location = useLocation();
+  const hideFooterPaths = ["/login", "/register", "/forgot-password", "/confirm-activation", "/reset-password", "/verify-password-code"];
+  const hideFooter = hideFooterPaths.includes(location.pathname);
 
   return (
-    <Router>
+    <div className="flex flex-col min-h-screen">
       <Routes>
-        <Route path="/" element={<Navigate to={isLoggedIn ? "/dashboard" : "/login"} />} />
+        <Route path="/" element={<Navigate to={localStorage.getItem("token") ? "/dashboard" : "/login"} />} />
 
-        {/* Public Auth Routes */}
+        {/* Auth Routes (No Footer) */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -126,13 +132,13 @@ function App() {
           <Route path="exam-levels" element={<ExamLevels />} />
           <Route path="exam-by-subject" element={<ExamBySubject />} />
           <Route path="participant-exam" element={<RegisteredParticipantExam />} />
-          <Route path="register-exam" element={<RegisterExam />} /> {/* ✅ new */}
+          <Route path="register-exam" element={<RegisterExam />} />
 
           {/* Questions */}
           <Route path="exam-questions/:examid" element={<ExamQuestions />} />
           <Route path="question/:questionid" element={<SingleQuestion />} />
-          <Route path="create-question" element={<CreateQuestion />} /> {/* ✅ new */}
-          <Route path="edit-question/:questionid" element={<EditQuestion />} /> {/* ✅ new */}
+          <Route path="create-question" element={<CreateQuestion />} />
+          <Route path="edit-question/:questionid" element={<EditQuestion />} />
 
           {/* Subjects */}
           <Route path="subjects" element={<AllSubjects />} />
@@ -140,13 +146,13 @@ function App() {
           <Route path="subject/:SubjectID" element={<SingleSubject />} />
           <Route path="create-subject" element={<CreateSubject />} />
           <Route path="edit-subject" element={<EditSubject />} />
-          <Route path="subject-summary" element={<SubjectSummary />} /> {/* ✅ new */}
+          <Route path="subject-summary" element={<SubjectSummary />} />
 
           {/* Institutions */}
           <Route path="institutions" element={<AllInstitutions />} />
           <Route path="institution/:InstitutionID" element={<SingleInstitution />} />
-          <Route path="create-institution" element={<CreateInstitution />} /> {/* ✅ new */}
-          <Route path="edit-institution/:id" element={<EditInstitution />} /> {/* ✅ new */}
+          <Route path="create-institution" element={<CreateInstitution />} />
+          <Route path="edit-institution/:id" element={<EditInstitution />} />
 
           {/* Wallet */}
           <Route path="request-card" element={<RequestCardPage />} />
@@ -165,12 +171,22 @@ function App() {
           <Route path="my-subscriptions" element={<MySubscriptions />} />
           <Route path="expire-subscriptions" element={<ExpireSubscriptions />} />
           <Route path="check-subscription" element={<CheckSubscriptionStatus />} />
-          <Route path="subscription-list" element={<SubscriptionList />} /> {/* ✅ new */}
+          <Route path="subscription-list" element={<SubscriptionList />} />
         </Route>
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+
+      {!hideFooter && <Footer />}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppWithFooter />
     </Router>
   );
 }
