@@ -1,5 +1,7 @@
 // App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+// Existing imports...
 import Register from "./pages/profile/Register";
 import Login from "./pages/profile/Login";
 import ForgotPassword from "./pages/profile/ForgotPassword";
@@ -26,10 +28,13 @@ import SubmitAnswers from "./pages/exam/SubmitAnswers";
 import ExamLevels from "./pages/exam/ExamLevels";
 import ExamBySubject from "./pages/exam/ExamBySubject";
 import RegisteredParticipantExam from "./pages/exam/RegisteredParticipantExam";
+import RegisterExam from "./pages/exam/RegisterExam"; 
 
-// Exam Questions Management
+// Exam Questions
 import ExamQuestions from "./pages/exam/ExamQuestions";
 import SingleQuestion from "./pages/exam/SingleQuestion";
+import CreateQuestion from "./pages/exam/CreateQuestion"; 
+import EditQuestion from "./pages/exam/EditQuestion";     
 
 // Subject Management
 import AllSubjects from "./pages/exam/AllSubjects";
@@ -37,13 +42,19 @@ import MySubjects from "./pages/exam/MySubjects";
 import SingleSubject from "./pages/exam/SingleSubject";
 import CreateSubject from "./pages/exam/CreateSubject";
 import EditSubject from "./pages/exam/EditSubject";
-import AllInstitutions from "./pages/subscription/AllInstitutions";
-import SingleInstitution from "./pages/subscription/SingleInstitution";
+import SubjectSummary from "./pages/exam/SubjectSummary"; 
 
+// Institutions
+import AllInstitutions from "./pages/institution/AllInstitutions";
+import SingleInstitution from "./pages/institution/SingleInstitution";
+import CreateInstitution from "./pages/institution/CreateInstitution"; 
+import EditInstitution from "./pages/institution/EditInstitution";     
+
+// Dashboard & Layout
 import Dashboard from "./pages/Dashboard";
 import SidebarLayout from "./components/SidebarLayout";
 
-// Wallet & Card Request Features
+// Wallet & Card
 import RequestCardPage from "./pages/wallet/RequestCardPage";
 import CardDenominations from "./pages/wallet/CardDenominations";
 import MyCardRequests from "./pages/wallet/MyCardRequests";
@@ -54,22 +65,20 @@ import LoadFundRequest from "./pages/wallet/LoadFundRequest";
 import ApproveFundRequest from "./pages/wallet/ApproveFundRequest";
 import VerifyCard from "./pages/wallet/VerifyCard";
 
-// Subscription Pages
+// Subscriptions
 import AllSubscriptions from "./pages/subscription/AllSubscriptions";
 import SubscribePlan from "./pages/subscription/SubscribePlan";
 import MySubscriptions from "./pages/subscription/MySubscriptions";
 import ExpireSubscriptions from "./pages/subscription/ExpireSubscriptions";
 import CheckSubscriptionStatus from "./pages/subscription/CheckSubscriptionStatus";
+import SubscriptionList from "./pages/subscription/SubscriptionList"; // ✅ new
 
-// Role-based access control wrapper
+// Auth guard
 function PrivateRoute({ children, allowedRoles }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
-
   if (!user || !token) return <Navigate to="/login" />;
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/unauthorized" />;
-  }
+  if (allowedRoles && !allowedRoles.includes(user.role)) return <Navigate to="/unauthorized" />;
   return children;
 }
 
@@ -79,7 +88,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Default Root Redirect */}
         <Route path="/" element={<Navigate to={isLoggedIn ? "/dashboard" : "/login"} />} />
 
         {/* Public Auth Routes */}
@@ -90,7 +98,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-password-code" element={<VerifyPasswordCode />} />
 
-        {/* Protected Dashboard Routes (with Sidebar) */}
+        {/* Protected Dashboard Routes */}
         <Route
           path="/dashboard"
           element={
@@ -99,10 +107,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          {/* Main dashboard route */}
           <Route index element={<Dashboard />} />
-          
-          {/* Other protected nested routes */}
           <Route path="profile" element={<UserProfile />} />
           <Route path="users" element={<AllUsers />} />
           <Route path="user-profile/:userid" element={<UserDetail />} />
@@ -110,7 +115,7 @@ function App() {
           <Route path="change-user-status" element={<ChangeUserStatus />} />
           <Route path="roles" element={<Roles />} />
 
-          {/* Exam Routes */}
+          {/* Exams */}
           <Route path="exams" element={<AllExams />} />
           <Route path="exam-details/:examid" element={<ExamDetails />} />
           <Route path="my-registered-exams" element={<MyRegisteredExams />} />
@@ -121,19 +126,27 @@ function App() {
           <Route path="exam-levels" element={<ExamLevels />} />
           <Route path="exam-by-subject" element={<ExamBySubject />} />
           <Route path="participant-exam" element={<RegisteredParticipantExam />} />
+          <Route path="register-exam" element={<RegisterExam />} /> {/* ✅ new */}
+
+          {/* Questions */}
           <Route path="exam-questions/:examid" element={<ExamQuestions />} />
           <Route path="question/:questionid" element={<SingleQuestion />} />
+          <Route path="create-question" element={<CreateQuestion />} /> {/* ✅ new */}
+          <Route path="edit-question/:questionid" element={<EditQuestion />} /> {/* ✅ new */}
 
-          {/* Subject Management */}
+          {/* Subjects */}
           <Route path="subjects" element={<AllSubjects />} />
           <Route path="my-subjects" element={<MySubjects />} />
           <Route path="subject/:SubjectID" element={<SingleSubject />} />
           <Route path="create-subject" element={<CreateSubject />} />
           <Route path="edit-subject" element={<EditSubject />} />
+          <Route path="subject-summary" element={<SubjectSummary />} /> {/* ✅ new */}
 
           {/* Institutions */}
           <Route path="institutions" element={<AllInstitutions />} />
           <Route path="institution/:InstitutionID" element={<SingleInstitution />} />
+          <Route path="create-institution" element={<CreateInstitution />} /> {/* ✅ new */}
+          <Route path="edit-institution/:id" element={<EditInstitution />} /> {/* ✅ new */}
 
           {/* Wallet */}
           <Route path="request-card" element={<RequestCardPage />} />
@@ -152,9 +165,10 @@ function App() {
           <Route path="my-subscriptions" element={<MySubscriptions />} />
           <Route path="expire-subscriptions" element={<ExpireSubscriptions />} />
           <Route path="check-subscription" element={<CheckSubscriptionStatus />} />
+          <Route path="subscription-list" element={<SubscriptionList />} /> {/* ✅ new */}
         </Route>
 
-        {/* Fallback Route */}
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

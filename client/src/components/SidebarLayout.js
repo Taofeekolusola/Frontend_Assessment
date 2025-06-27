@@ -59,10 +59,7 @@ const SidebarLayout = () => {
             <Link to="/dashboard" className="block hover:text-gray-300">🏠 Dashboard</Link>
 
             {/* Exams */}
-            <div
-              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
-              onClick={() => toggleSection("exams")}
-            >
+            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("exams")}>
               📝 Exams {openSection.exams ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.exams && (
@@ -72,39 +69,36 @@ const SidebarLayout = () => {
                 <Link to="/dashboard/exam-by-subject" className="block hover:text-gray-300">Exam by Subject</Link>
                 <Link to="/dashboard/exam-levels" className="block hover:text-gray-300">Exam Levels</Link>
                 <Link to="/dashboard/start-exam" className="block hover:text-gray-300">Start Exam</Link>
+                <Link to="/dashboard/register-exam" className="block hover:text-gray-300">Register for Exam</Link>
               </>
             )}
 
             {/* Subjects */}
-            <div
-              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
-              onClick={() => toggleSection("subjects")}
-            >
+            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("subjects")}>
               📚 Subjects {openSection.subjects ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.subjects && (
               <>
                 <Link to="/dashboard/subjects" className="block hover:text-gray-300">All Subjects</Link>
                 <Link to="/dashboard/my-subjects" className="block hover:text-gray-300">My Subjects</Link>
+                <Link to="/dashboard/subject-summary" className="block hover:text-gray-300">Subject Summary</Link>
               </>
             )}
 
             {/* Institutions */}
-            <div
-              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
-              onClick={() => toggleSection("institutions")}
-            >
+            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("institutions")}>
               🏫 Institutions {openSection.institutions ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.institutions && (
-              <Link to="/dashboard/institutions" className="block hover:text-gray-300">All Institutions</Link>
+              <>
+                <Link to="/dashboard/institutions" className="block hover:text-gray-300">All Institutions</Link>
+                <Link to="/dashboard/create-institution" className="block hover:text-gray-300">Create Institution</Link>
+                <Link to="/dashboard/edit-institution/1" className="block hover:text-gray-300">Edit Institution (Demo)</Link>
+              </>
             )}
 
             {/* Wallet */}
-            <div
-              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
-              onClick={() => toggleSection("wallet")}
-            >
+            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("wallet")}>
               💳 Wallet {openSection.wallet ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.wallet && (
@@ -117,10 +111,7 @@ const SidebarLayout = () => {
             )}
 
             {/* Subscriptions */}
-            <div
-              className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
-              onClick={() => toggleSection("subscriptions")}
-            >
+            <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("subscriptions")}>
               📦 Subscriptions {openSection.subscriptions ? <BsChevronUp /> : <BsChevronDown />}
             </div>
             {openSection.subscriptions && (
@@ -129,16 +120,14 @@ const SidebarLayout = () => {
                 <Link to="/dashboard/my-subscriptions" className="block hover:text-gray-300">My Subscriptions</Link>
                 <Link to="/dashboard/subscribe-plan" className="block hover:text-gray-300">Subscribe to Plan</Link>
                 <Link to="/dashboard/expire-subscriptions" className="block hover:text-gray-300">Expired Subscriptions</Link>
+                <Link to="/dashboard/subscription-list" className="block hover:text-gray-300">Subscription List</Link>
               </>
             )}
 
             {/* Admin Section */}
             {user?.role === 1 && (
               <>
-                <div
-                  className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center"
-                  onClick={() => toggleSection("admin")}
-                >
+                <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("admin")}>
                   🛠️ Admin Tools {openSection.admin ? <BsChevronUp /> : <BsChevronDown />}
                 </div>
                 {openSection.admin && (
@@ -149,6 +138,8 @@ const SidebarLayout = () => {
                     <Link to="/dashboard/roles" className="block hover:text-gray-300">Manage Roles</Link>
                     <Link to="/dashboard/create-exam" className="block hover:text-gray-300">Create Exam</Link>
                     <Link to="/dashboard/create-subject" className="block hover:text-gray-300">Create Subject</Link>
+                    <Link to="/dashboard/create-question" className="block hover:text-gray-300">Create Question</Link>
+                    <Link to="/dashboard/edit-question/1" className="block hover:text-gray-300">Edit Question (Demo)</Link>
                     <Link to="/dashboard/load-fund" className="block hover:text-gray-300">Load Fund Request</Link>
                     <Link to="/dashboard/card-denominations" className="block hover:text-gray-300">Card Denominations</Link>
                   </>
@@ -156,6 +147,7 @@ const SidebarLayout = () => {
               </>
             )}
           </nav>
+
         </div>
 
         {/* Bottom Section (busy & attractive) */}
