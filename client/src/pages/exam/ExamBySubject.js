@@ -1,4 +1,3 @@
-// src/pages/ExamBySubject.jsx
 import { useState } from "react";
 import api from "../../services/api";
 
@@ -8,11 +7,20 @@ export default function ExamBySubject() {
   const [error, setError] = useState("");
 
   const handleFetch = () => {
+    setError(""); // clear previous errors
     api.get(`/api/Exam/ExamBySubject/${subjectID}`)
-      .then(res => setExams(res.data))
-      .catch(() => setError("Failed to fetch exams for subject."));
-  };
+      .then(res => {
+        console.log("✅ API response:", res.data); // <-- Add this
+        const examList = res?.data?.data;
 
+        if (Array.isArray(examList)) {
+          setExams(examList);
+        } else {
+          setExams([]);
+          setError("Invalid response format: exams not found.");
+        }
+      })
+  }
   return (
     <div className="max-w-xl mx-auto p-6 mt-10 bg-white shadow rounded">
       <h2 className="text-xl font-bold mb-4">Get Exams by Subject</h2>
@@ -32,7 +40,7 @@ export default function ExamBySubject() {
       <ul className="space-y-3">
         {exams.map((exam) => (
           <li key={exam.examID} className="border p-3 rounded bg-gray-50">
-            <strong>{exam.examTitle}</strong> - {exam.examDate}
+            <strong>{exam.examTitle}</strong> - {new Date(exam.examDate).toLocaleDateString()}
           </li>
         ))}
       </ul>

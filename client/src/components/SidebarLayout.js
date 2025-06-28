@@ -2,11 +2,9 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   FaBars, FaUser, FaSignOutAlt, FaFolderOpen,
-  FaChalkboardTeacher, FaGraduationCap
+  FaChalkboardTeacher, FaGraduationCap, FaUsersCog
 } from "react-icons/fa";
-import {
-  BsChevronDown, BsChevronUp
-} from "react-icons/bs";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
 const SidebarLayout = () => {
   const navigate = useNavigate();
@@ -14,6 +12,7 @@ const SidebarLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [openSection, setOpenSection] = useState({
+    users: true,
     exams: true,
     subjects: true,
     institutions: true,
@@ -45,14 +44,28 @@ const SidebarLayout = () => {
 
       {/* Sidebar */}
       <aside className={`bg-blue-900 text-white w-full md:w-64 p-4 flex flex-col ${sidebarOpen ? "block" : "hidden md:flex"}`}>
-        {/* Header */}
         <div className="mb-6 hidden md:block">
           <h1 className="text-2xl font-bold text-left">QUIZ APP</h1>
         </div>
 
         {/* Navigation */}
         <nav className="space-y-3 text-sm flex-grow overflow-y-auto">
+
           <Link to="/dashboard" className="block hover:text-gray-300">🏠 Dashboard</Link>
+
+          {/* ✅ User Management */}
+          <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("users")}>
+            👤 Users {openSection.users ? <BsChevronUp /> : <BsChevronDown />}
+          </div>
+          {openSection.users && (
+            <>
+              <Link to="/dashboard/profile" className="block hover:text-gray-300">My Profile</Link>
+              <Link to="/dashboard/users" className="block hover:text-gray-300">All Users</Link>
+              <Link to="/dashboard/search-user" className="block hover:text-gray-300">Search User</Link>
+              <Link to="/dashboard/change-user-status" className="block hover:text-gray-300">Change User Status</Link>
+              <Link to="/dashboard/roles" className="block hover:text-gray-300">Manage Roles</Link>
+            </>
+          )}
 
           {/* Exams */}
           <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("exams")}>
@@ -143,10 +156,6 @@ const SidebarLayout = () => {
               </div>
               {openSection.admin && (
                 <>
-                  <Link to="/dashboard/users" className="block hover:text-gray-300">Manage Users</Link>
-                  <Link to="/dashboard/search-user" className="block hover:text-gray-300">Search Users</Link>
-                  <Link to="/dashboard/change-user-status" className="block hover:text-gray-300">Change User Status</Link>
-                  <Link to="/dashboard/roles" className="block hover:text-gray-300">Manage Roles</Link>
                   <Link to="/dashboard/create-exam" className="block hover:text-gray-300">Create Exam</Link>
                   <Link to="/dashboard/create-subject" className="block hover:text-gray-300">Create Subject</Link>
                   <Link to="/dashboard/create-question" className="block hover:text-gray-300">Create Question</Link>
@@ -160,7 +169,7 @@ const SidebarLayout = () => {
           )}
         </nav>
 
-        {/* Sticky Bottom Section */}
+        {/* Sticky Bottom */}
         <div className="mt-auto pt-4 border-t border-gray-500 text-white">
           <div className="flex justify-around text-lg mb-4">
             <div title="Profile" className="hover:text-yellow-400 cursor-pointer"><FaUser /></div>

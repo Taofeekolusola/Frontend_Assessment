@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 
-export default function Roles() {
+export default function AllRoles() {
   const [roles, setRoles] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     api.get("/api/Role/Roles")
-      .then(res => setRoles(res.data))
-      .catch(console.error);
+      .then((res) => {
+        const roleList = res?.data?.data;
+        if (Array.isArray(roleList)) {
+          setRoles(roleList);
+        } else {
+          setError("Invalid response format.");
+        }
+      })
+      .catch(() => setError("Failed to fetch roles."));
   }, []);
 
   return (
-    <div className="p-6 max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Available Roles</h2>
+    <div>
+      <h2 className="text-xl font-bold mb-4">Available Roles</h2>
+      {error && <p className="text-red-500">{error}</p>}
       <ul className="space-y-2">
         {roles.map((role) => (
-          <li key={role.id} className="p-3 border rounded bg-gray-50">
-            {role.name}
-          </li>
+          <li key={role.roleID} className="p-2 border rounded">{role.roleName}</li>
         ))}
       </ul>
     </div>

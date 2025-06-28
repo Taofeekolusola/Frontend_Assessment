@@ -8,8 +8,21 @@ export default function AllUsers() {
 
   useEffect(() => {
     api.get("/api/User/Users")
-      .then(res => setUsers(res.data))
-      .catch(() => setError("Could not fetch users."));
+      .then(res => {
+        const userList = res?.data?.data;
+
+        console.log("User list response:", userList); // Debug log
+
+        if (Array.isArray(userList)) {
+          setUsers(userList);
+        } else {
+          setError("Invalid response format (not an array).");
+        }
+      })
+      .catch(err => {
+        console.error("API error:", err);
+        setError("Could not fetch users.");
+      });
   }, []);
 
   return (
@@ -21,7 +34,12 @@ export default function AllUsers() {
           <li key={user.id} className="border p-3 rounded bg-gray-50">
             <p><strong>{user.firstname} {user.lastname}</strong></p>
             <p>{user.emailaddress}</p>
-            <Link to={`/user-profile/${user.id}`} className="text-blue-500 text-sm hover:underline">View Profile</Link>
+            <Link
+              to={`/user-profile/${user.id}`}
+              className="text-blue-500 text-sm hover:underline"
+            >
+              View Profile
+            </Link>
           </li>
         ))}
       </ul>

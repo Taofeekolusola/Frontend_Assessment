@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# 📚 Exam Management Platform (React + Node.js)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a full-featured **Exam Management Platform** built with **React** (frontend) and **Node.js** (backend). It allows administrators, examiners, and participants to manage and interact with exams, users, subjects, institutions, wallets, and subscriptions.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+### ✅ Authentication
+- User Registration and Login
+- Password Reset & Activation via Code
+- Role-based Access Control (e.g., Participant, Examiner, Admin)
 
-### `npm start`
+### 👤 User Management
+- View All Users
+- Search and Update User Details
+- Change User Status
+- Assign Roles
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📝 Exam Management
+- Create, Edit, and View Exams
+- Register for Exams
+- Start and Submit Exams
+- View Exam Details and Levels
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ❓ Questions Management
+- Add, Edit, and View Questions
+- Fetch Questions by Exam
 
-### `npm test`
+### 📚 Subjects
+- View All Subjects
+- Create/Edit Subjects
+- View Subject Summary
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🏛️ Institution Management
+- Add/Edit Institutions
+- View Single or All Institutions
 
-### `npm run build`
+### 💳 Wallet & Cards
+- View and Manage Wallet
+- Request Fund Cards
+- Approve Fund Requests
+- Verify Cards
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🧾 Subscriptions
+- Subscribe to Plans
+- View My Subscriptions
+- Check Subscription Status
+- View All and Expired Subscriptions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚙️ Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Frontend:** React, TailwindCSS, React Router
+- **Backend API:** Node.js (Express), REST API
+- **Authentication:** JWT-based Auth
+- **State Handling:** Local Storage
+- **Icons:** `react-icons`
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📂 Folder Structure (Frontend)
