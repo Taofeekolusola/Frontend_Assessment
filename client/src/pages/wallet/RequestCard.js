@@ -12,17 +12,32 @@ export default function RequestCard() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await api.post("/api/CardRequest/RequestCard", {
-        cardDenomination: parseInt(form.cardDenomination),
-        totalCard: parseInt(form.totalCard)
-      });
-      setMessage("Card request submitted successfully.");
-    } catch (err) {
-      setMessage("Failed to submit card request.");
-    }
+  e.preventDefault();
+  const denomination = parseInt(form.cardDenomination);
+  const total = parseInt(form.totalCard);
+
+  if (isNaN(denomination) || isNaN(total)) {
+    setMessage("Please enter valid numeric values.");
+    return;
+  }
+
+  const payload = {
+    cardDenomination: denomination,
+    totalCard: total,
   };
+
+  console.log("Sending payload:", payload); // 👈 check values
+
+  try {
+    const res = await api.post("/api/CardRequest/RequestCard", payload);
+    console.log(res.data);
+    setMessage("✅ Card request submitted successfully.");
+    setForm({ cardDenomination: "", totalCard: "" });
+  } catch (err) {
+  console.error("Error response:", err?.response?.data || err);
+  setMessage("❌ " + (err?.response?.data?.message || "Failed to submit card request."));
+}
+};
 
   return (
     <div className="p-4">

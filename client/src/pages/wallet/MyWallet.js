@@ -7,7 +7,7 @@ export default function MyWallet() {
 
   useEffect(() => {
     api.get("/api/Wallet/MyWallet")
-      .then(res => setWallet(res.data))
+      .then(res => setWallet(res.data.data))
       .catch(() => setWallet(null));
   }, []);
 
