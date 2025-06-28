@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -78,7 +79,9 @@ export default function Login() {
         </button>
 
         <p className="text-sm text-center mt-2 text-gray-600">
-          <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot Password?</a>
+          <Link to="/forgot-password" className="text-blue-600 hover:underline">Forgot Password?</Link>
+          {" | "}
+          <Link to="/register" className="text-blue-600 hover:underline">Sign up</Link>
         </p>
       </form>
     </div>
