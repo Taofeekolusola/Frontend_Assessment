@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaPhone, FaEnvelope, FaLock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -146,6 +147,10 @@ export default function Register() {
         >
           Register
         </button>
+        <p className="text-sm text-center mt-2 text-gray-600">
+                Already have an account?
+                  <Link to="/login" className="text-blue-600 hover:underline"> Sign in</Link>
+                </p>
       </form>
     </div>
   );
