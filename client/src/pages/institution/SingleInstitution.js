@@ -10,7 +10,7 @@ export default function SingleInstitution() {
 
   useEffect(() => {
     api.get(`/api/Institution/SingleInstitution/${InstitutionID}`)
-      .then(res => setInstitution(res.data))
+      .then(res => setInstitution(res.data.data))
       .catch(() => setError("Failed to fetch institution."));
   }, [InstitutionID]);
 

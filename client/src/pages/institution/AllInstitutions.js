@@ -6,7 +6,7 @@ export default function AllInstitutions() {
   const [institutions, setInstitutions] = useState([]);
 
   useEffect(() => {
-  api.get("/api/Subject/AllSubject")
+  api.get("/api/Institution/AllInstitutions")
     .then(res => {
       console.log(res.data); // Check the structure
       setInstitutions(Array.isArray(res.data) ? res.data : res.data.data || []);

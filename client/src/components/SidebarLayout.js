@@ -149,7 +149,7 @@ const SidebarLayout = () => {
           )}
 
           {/* Admin Tools */}
-          {user?.role === 1 && (
+          {user?.role === 99 && (
             <>
               <div className="mt-4 font-semibold text-blue-200 cursor-pointer flex justify-between items-center" onClick={() => toggleSection("admin")}>
                 🛠️ Admin Tools {openSection.admin ? <BsChevronUp /> : <BsChevronDown />}
