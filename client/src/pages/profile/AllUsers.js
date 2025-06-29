@@ -10,9 +10,6 @@ export default function AllUsers() {
     api.get("/api/User/Users")
       .then(res => {
         const userList = res?.data?.data;
-
-        console.log("User list response:", userList); // Debug log
-
         if (Array.isArray(userList)) {
           setUsers(userList);
         } else {
@@ -34,12 +31,10 @@ export default function AllUsers() {
           <li key={user.id} className="border p-3 rounded bg-gray-50">
             <p><strong>{user.firstname} {user.lastname}</strong></p>
             <p>{user.emailaddress}</p>
-            <Link
-              to={`/user-profile/${user.id}`}
-              className="text-blue-500 text-sm hover:underline"
-            >
+            <Link to={`/dashboard/user-profile/${user.id}`} className="text-blue-500 text-sm hover:underline">
               View Profile
             </Link>
+
           </li>
         ))}
       </ul>
