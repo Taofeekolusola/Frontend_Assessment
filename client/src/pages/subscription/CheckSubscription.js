@@ -3,17 +3,23 @@ import api from "../../services/api";
 
 export default function CheckSubscriptionStatus() {
   const [subscriptionId, setSubscriptionId] = useState("");
+  const [participantId, setParticipantId] = useState("");
   const [status, setStatus] = useState("");
 
   const handleCheck = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await api.post("/api/ParticipantSubscription/check_subscription", {
-        subscriptionID: parseInt(subscriptionId),
+      const res = await api.post("/ParticipantSubscription/check_subscription", {
+        subscriptionId: parseInt(subscriptionId),
+        participantID: parseInt(participantId),
       });
-      setStatus(res.data.data ? "User is subscribed ✅" : "User is NOT subscribed ❌");
-    } catch {
-      setStatus("Error checking subscription.");
+
+      console.log("API Response:", res.data);
+      setStatus(res.data?.data ? "✅ User is subscribed" : "❌ User is NOT subscribed");
+    } catch (err) {
+      console.error("Check subscription error:", err);
+      setStatus("⚠️ Error checking subscription.");
     }
   };
 
@@ -29,11 +35,19 @@ export default function CheckSubscriptionStatus() {
           className="w-full p-2 border rounded"
           required
         />
+        <input
+          type="number"
+          value={participantId}
+          onChange={(e) => setParticipantId(e.target.value)}
+          placeholder="Participant ID"
+          className="w-full p-2 border rounded"
+          required
+        />
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
           Check
         </button>
       </form>
-      {status && <p className="mt-4 text-center">{status}</p>}
+      {status && <p className="mt-4 text-center font-medium">{status}</p>}
     </div>
   );
 }

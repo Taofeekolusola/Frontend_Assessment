@@ -11,6 +11,7 @@ export default function SubscriptionList() {
       .then((res) => {
         const result = res.data?.data || [];
         setSubscriptions(result);
+        console.log("All Subscriptions:", result);
       })
       .catch((err) => {
         setError("Failed to fetch subscriptions");
@@ -30,11 +31,11 @@ export default function SubscriptionList() {
       ) : (
         <ul className="space-y-4">
           {subscriptions.map((plan) => (
-            <li key={plan.subscriptionID} className="border p-4 bg-white shadow rounded">
-              <h3 className="text-lg font-semibold">{plan.planName}</h3>
-              <p>Price: ₦{plan.price}</p>
-              <p>Duration: {plan.durationInDays} days</p>
-              <p className="text-gray-600">{plan.description}</p>
+            <li key={plan.subId} className="border p-4 bg-white shadow rounded">
+              <h3 className="text-lg font-semibold">{plan.subName}</h3>
+              <p>Price: ₦{plan.subAmount}</p>
+              <p>Duration: {plan.subDuration} days</p>
+              <p className="text-gray-600">{plan.subDescription}</p>
             </li>
           ))}
         </ul>

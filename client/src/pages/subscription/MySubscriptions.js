@@ -8,6 +8,7 @@ export default function MySubscriptions() {
     const fetch = async () => {
       const res = await api.get("/api/Subscription/MySubscriptions");
       setMySubs(res.data.data || []);
+      console.log("My Subscriptions:", res.data);
     };
     fetch();
   }, []);

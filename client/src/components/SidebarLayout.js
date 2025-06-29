@@ -130,6 +130,8 @@ const SidebarLayout = () => {
               <Link to="/dashboard/my-card-requests" className="block hover:text-gray-300">My Card Requests</Link>
               <Link to="/dashboard/verify-card" className="block hover:text-gray-300">Verify Card</Link>
               <Link to="/dashboard/cards-by-request/1" className="block hover:text-gray-300">Cards by Request</Link>
+              <Link to="/dashboard/log-fund-request" className="block hover:text-gray-300">Log Fund Request</Link>
+              <Link to="/dashboard/schemes" className="block hover:text-gray-300">All Schemesaa</Link>
             </>
           )}
 
@@ -156,6 +158,7 @@ const SidebarLayout = () => {
               </div>
               {openSection.admin && (
                 <>
+                  <Link to="/dashboard/create-scheme" className="block hover:text-gray-300">Create Scheme</Link>
                   <Link to="/dashboard/create-exam" className="block hover:text-gray-300">Create Exam</Link>
                   <Link to="/dashboard/create-subject" className="block hover:text-gray-300">Create Subject</Link>
                   <Link to="/dashboard/create-question" className="block hover:text-gray-300">Create Question</Link>
